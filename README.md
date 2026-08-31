@@ -74,11 +74,11 @@
   [3] Status / Leak Check          - Check current DNS configuration
   [4] Change DNS Provider          - Switch between DNS providers
   [5] Test a Website               - Verify connectivity to a domain
-  [6] Apply to ALL adapters        - Apply DNS to all active adapters
-  [7] Network Hardening            - Apply anti-leak measures
+  [6] Apply to ALL active adapters - Apply DNS to all active adapters
+  [7] Network Hardening (Anti-Leak)- Apply comprehensive leak prevention
   [8] Backup System                - Create system state snapshot
   [9] Restore from Backup          - Restore from previous snapshot
-  [10] Exit
+  [10] Exit                        - Close the application
 ```
 
 ---

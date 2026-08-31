@@ -167,6 +167,9 @@ namespace DnsAdvancedBypass
             Console.Title = "DNS Bypass v2.5";
             Console.OutputEncoding = Encoding.UTF8;
 
+            // Apply console transparency
+            SetConsoleTransparency(230); // 230/255 = ~90% opacity
+
             // Initialize modular services
             _logger = new ConsoleLogger(debugMode: false);
             _registry = new SafeRegistryHelper(_logger);
@@ -2306,9 +2309,43 @@ namespace DnsAdvancedBypass
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         static extern int MessageBoxW(IntPtr hWnd, string lpText, string lpCaption, uint uType);
 
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern int SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
+
+        [DllImport("user32.dll")]
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        private const int GWL_EXSTYLE = -20;
+        private const int WS_EX_LAYERED = 0x80000;
+        private const int LWA_ALPHA = 0x2;
+
         static bool ContainsAny(string s, params string[] needles)
         {
             return needles.Any(n => s.IndexOf(n, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        static void SetConsoleTransparency(byte alpha)
+        {
+            try
+            {
+                IntPtr hwnd = GetConsoleWindow();
+                if (hwnd != IntPtr.Zero)
+                {
+                    int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+                    SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_LAYERED);
+                    SetLayeredWindowAttributes(hwnd, 0, alpha, LWA_ALPHA);
+                }
+            }
+            catch
+            {
+                // Silently fail if transparency not supported
+            }
         }
 
         static void SetColor(ConsoleColor c)
