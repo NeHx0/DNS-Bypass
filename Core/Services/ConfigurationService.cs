@@ -24,7 +24,7 @@ namespace DnsAdvancedBypass.Core.Services
             
             string appDataDir = configDirectory ?? Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "BlockerKiller");
+                "DNS-Bypass");
 
             Directory.CreateDirectory(appDataDir);
             

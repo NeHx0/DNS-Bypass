@@ -32,10 +32,10 @@ namespace DnsAdvancedBypass.Core.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
             
-            // Default backup directory: AppData\BlockerKiller\Backups
+            // Default backup directory: AppData\DNS-Bypass\Backups
             _backupDirectory = backupDirectory ?? Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "BlockerKiller", "Backups");
+                "DNS-Bypass", "Backups");
 
             // Ensure backup directory exists
             try

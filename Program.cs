@@ -51,7 +51,7 @@ namespace DnsAdvancedBypass
         private static IConfigurationService _configService;
 
         private static readonly string AppDataDir =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlockerKiller");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DNS-Bypass");
 
         private static readonly string BackupFile = Path.Combine(AppDataDir, "dns_backup.json");
         private static readonly string PrevBackupFile = Path.Combine(AppDataDir, "dns_backup.prev.json");

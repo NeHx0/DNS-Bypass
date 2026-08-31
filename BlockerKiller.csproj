@@ -6,7 +6,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <AssemblyName>DNS Bypass</AssemblyName>
     <ApplicationIcon>dnsicon.ico</ApplicationIcon>
-    <RootNamespace>BlockerKiller</RootNamespace>
+    <RootNamespace>DnsAdvancedBypass</RootNamespace>
     <Version>2.5.0</Version>
     <FileVersion>2.5.0.0</FileVersion>
     <InformationalVersion>2.5.0</InformationalVersion>
