@@ -210,13 +210,72 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under a **Proprietary License** - see [LICENSE](LICENSE) file for details.
+
+**Key Points:**
+- ✅ Personal and educational use permitted
+- ✅ Authorized security testing allowed
+- ❌ Commercial use requires written permission
+- ❌ Redistribution and modification prohibited
+- ❌ No warranty provided
+
+For commercial licensing inquiries, please contact via GitHub issues.
 
 ---
 
-## ⚠️ Disclaimer
+## ⚖️ Legal Disclaimer
 
-This software is provided "as is" without warranty of any kind. The authors are not responsible for any misuse or damage caused by this tool. Always ensure you have authorization before modifying network configurations on any system.
+### Important Legal Notice
+
+**THIS SOFTWARE IS PROVIDED FOR AUTHORIZED SECURITY TESTING, RESEARCH, AND EDUCATIONAL PURPOSES ONLY.**
+
+### Terms of Use
+
+By using DNS Bypass, you explicitly acknowledge and agree to the following:
+
+1. **Authorization Required**: You must have explicit written authorization from the network/system owner before using this software on any network or system that you do not own.
+
+2. **Legal Compliance**: You are solely responsible for ensuring your use of this software complies with all applicable local, national, and international laws and regulations.
+
+3. **No Warranty**: This software is provided "AS IS" without warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.
+
+4. **Limitation of Liability**: Under no circumstances shall the authors, copyright holders, or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including but not limited to data loss, system failures, security breaches, or business interruption) arising from your use or inability to use this software.
+
+5. **User Responsibility**: You assume all risks and responsibilities associated with the use of this software. The authors disclaim any liability for misuse, unauthorized access, or violations of any policies or laws.
+
+6. **Prohibited Uses**: Using this software to:
+   - Bypass network restrictions without proper authorization
+   - Access systems or networks without explicit permission
+   - Violate terms of service, acceptable use policies, or employment agreements
+   - Engage in any illegal activities
+   
+   is strictly prohibited and may result in civil and/or criminal liability.
+
+### Ethical Use Statement
+
+This tool is designed to assist network administrators, security professionals, and researchers in legitimate testing scenarios. Users must:
+
+- ✅ Obtain proper authorization before testing
+- ✅ Respect privacy and security policies
+- ✅ Use the tool responsibly and ethically
+- ✅ Report vulnerabilities through responsible disclosure
+- ❌ Not use for malicious purposes
+- ❌ Not violate laws or regulations
+- ❌ Not bypass security controls without authorization
+
+### Indemnification
+
+You agree to indemnify, defend, and hold harmless the authors, contributors, and copyright holders from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use or misuse of this software.
+
+### Severability
+
+If any provision of this disclaimer is held to be invalid or unenforceable, the remaining provisions shall continue in full force and effect.
+
+---
+
+**BY DOWNLOADING, INSTALLING, OR USING THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS DISCLAIMER, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS.**
+
+**IF YOU DO NOT AGREE TO THESE TERMS, DO NOT USE THIS SOFTWARE.**
 
 ---
 
@@ -231,8 +290,13 @@ This software is provided "as is" without warranty of any kind. The authors are 
 ## 📧 Contact
 
 - **GitHub Issues**: [Report bugs or request features](../../issues)
-- **Author**: [ErAy](https://github.com/NeHx0)
+- **Author**: [NeHx0](https://github.com/NeHx0)
+- **Repository**: [DNS-Bypass](https://github.com/NeHx0/DNS-Bypass)
 
 ---
 
-<p align="center">Made with ❤️ for network security research</p>
+<p align="center">
+  <strong>DNS Bypass v2.5</strong><br>
+  Copyright © 2026 NeHx0. All Rights Reserved.<br>
+  <em>For authorized security testing and educational purposes only.</em>
+</p>
