@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>DNS Bypass</AssemblyName>
+    <ApplicationIcon>dnsicon.ico</ApplicationIcon>
+    <RootNamespace>BlockerKiller</RootNamespace>
+    <Version>2.5.0</Version>
+    <FileVersion>2.5.0.0</FileVersion>
+    <InformationalVersion>2.5.0</InformationalVersion>
+    <Product>DNS Bypass</Product>
+    <AssemblyTitle>DNS Bypass</AssemblyTitle>
+    <Description>DNS tabanlı filtrelemeyi aşmak ve ağ DNS durumunu değerlendirmek için yetkili test aracı (v2.5)</Description>
+    <Company>NeHx0</Company>
+    <Copyright>© 2026 NeHx0</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="dnsicon.ico" />
+  </ItemGroup>
+</Project>
