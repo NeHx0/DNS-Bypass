@@ -1,8 +1,16 @@
 # 🛡️ DNS Bypass - Advanced Network Security Tool
 
+<div align="center">
+  
+![DNS Bypass Screenshot](assets/screenshot.png)
+
 [![Windows](https://img.shields.io/badge/Platform-Windows%2010%2B-blue)](https://www.microsoft.com/windows)
 [![.NET](https://img.shields.io/badge/.NET-10.0-purple)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+</div>
+
+---
 
 **DNS Bypass** is an advanced network security assessment tool for Windows that provides DNS-based filtering bypass capabilities combined with comprehensive network hardening features.
 
