@@ -231,7 +231,7 @@ This software is provided "as is" without warranty of any kind. The authors are 
 ## 📧 Contact
 
 - **GitHub Issues**: [Report bugs or request features](../../issues)
-- **Author**: [Your Name](https://github.com/YOUR_USERNAME)
+- **Author**: [ErAy](https://github.com/NeHx0)
 
 ---
 
