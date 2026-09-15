@@ -37,6 +37,8 @@ bld/
 
 # Publish outputs
 publish/
+publish_standalone/
+*.crproj
 *.pubxml
 *.PublishSettings
 

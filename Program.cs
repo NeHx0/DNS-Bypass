@@ -35,6 +35,7 @@ using DnsAdvancedBypass.Core.Interfaces;
 using DnsAdvancedBypass.Core.Models;
 using DnsAdvancedBypass.Core.Services;
 using DnsAdvancedBypass.Core.Helpers;
+using DnsAdvancedBypass.Core.Security;
 
 #pragma warning disable SYSLIB0014 // WebClient/ServicePointManager kept for .NET Framework compatibility
 
@@ -164,6 +165,20 @@ namespace DnsAdvancedBypass
 
         static void Main(string[] args)
         {
+            // 🔒 Initialize runtime protection (anti-debug, anti-tamper, anti-dump)
+            // Shows "Encrypted By ErAy" message if tampering is detected
+            try
+            {
+                ProtectionShield.Initialize();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[PROTECTION ERROR] {ex.Message}");
+                Console.ResetColor();
+                Environment.Exit(1);
+            }
+
             Console.Title = "DNS Bypass v2.5";
             Console.OutputEncoding = Encoding.UTF8;
 
