@@ -50,6 +50,7 @@ namespace DnsAdvancedBypass
         private static IBackupService _backupService;
         private static IRestoreService _restoreService;
         private static IConfigurationService _configService;
+        private static DohManager _dohManager;
 
         private static readonly string AppDataDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DNS-Bypass");
@@ -192,6 +193,7 @@ namespace DnsAdvancedBypass
             _backupService = new BackupService(_logger, _registry);
             _restoreService = new RestoreService(_logger, _registry, _backupService);
             _configService = new ConfigurationService(_logger);
+            _dohManager = new DohManager(_logger, _registry);
 
             if (!IsAuthorizedDevice())
             {
@@ -1474,14 +1476,28 @@ namespace DnsAdvancedBypass
         {
             try
             {
-                var keyPath = DohRegBase + @"\" + adapter.Id;
-                using (var k = Registry.LocalMachine.CreateSubKey(keyPath))
+                // Use new DohManager for enhanced DoH support
+                var task = _dohManager.EnableDohAsync(adapter.GetIPProperties().DnsAddresses[0].ToString(), template);
+                task.Wait();
+                
+                if (task.Result)
                 {
-                    k.SetValue("DohTemplate", template, RegistryValueKind.String);
-                    // 3 = required DoH (no plaintext fallback) — stops on-path DNS hijack
-                    k.SetValue("EnableAutoDoh", 3, RegistryValueKind.DWord);
+                    Log("SUCCESS", "DoH enabled (Port 443/HTTPS) -> " + template);
+                    Log("INFO", "DNS traffic now encrypted via HTTPS - Port 53 blocks bypassed!");
                 }
-                Log("SUCCESS", "DoH enabled for '" + adapter.Name + "' -> " + template);
+                else
+                {
+                    // Fallback to legacy method
+                    Log("WARN", "Advanced DoH failed, trying legacy method...");
+                    var keyPath = DohRegBase + @"\" + adapter.Id;
+                    using (var k = Registry.LocalMachine.CreateSubKey(keyPath))
+                    {
+                        k.SetValue("DohTemplate", template, RegistryValueKind.String);
+                        // 3 = required DoH (no plaintext fallback)
+                        k.SetValue("EnableAutoDoh", 3, RegistryValueKind.DWord);
+                    }
+                    Log("SUCCESS", "DoH enabled (legacy) for '" + adapter.Name + "' -> " + template);
+                }
             }
             catch (Exception ex)
             {
