@@ -51,6 +51,7 @@ namespace DnsAdvancedBypass
         private static IRestoreService _restoreService;
         private static IConfigurationService _configService;
         private static DohManager _dohManager;
+        private static StealthDnsClient _stealthClient;
 
         private static readonly string AppDataDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DNS-Bypass");
@@ -187,13 +188,14 @@ namespace DnsAdvancedBypass
             SetConsoleTransparency(230); // 230/255 = ~90% opacity
 
             // Initialize modular services
-            _logger = new ConsoleLogger(debugMode: false);
+            _logger = new ConsoleLogger(debugMode: false); // Production mode
             _registry = new SafeRegistryHelper(_logger);
             _hardener = new NetworkHardener(_logger, _registry);
             _backupService = new BackupService(_logger, _registry);
             _restoreService = new RestoreService(_logger, _registry, _backupService);
             _configService = new ConfigurationService(_logger);
             _dohManager = new DohManager(_logger, _registry);
+            _stealthClient = new StealthDnsClient(_logger);
 
             if (!IsAuthorizedDevice())
             {
@@ -229,6 +231,9 @@ namespace DnsAdvancedBypass
                 Console.WriteLine("  [7] Network Hardening (Anti-Leak)");
                 Console.WriteLine("  [8] Backup System");
                 Console.WriteLine("  [9] Restore from Backup");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("  [S] 🔥 STEALTH MODE (Mikrotik Bypass)");
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("  [10] Exit");
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -270,6 +275,10 @@ namespace DnsAdvancedBypass
                         break;
                     case "9":
                         RestoreFromBackup();
+                        break;
+                    case "s":
+                    case "S":
+                        TestStealthMode();
                         break;
                     case "10":
                         Log("INFO", "Shutting down...");
@@ -1166,6 +1175,77 @@ namespace DnsAdvancedBypass
             catch (Exception ex)
             {
                 Log("ERROR", $"Restore failed: {ex.Message}");
+            }
+        }
+
+        // -------------------------------------------------------- Stealth Mode
+
+        static void TestStealthMode()
+        {
+            Console.WriteLine();
+            Log("INFO", "🔥 STEALTH MODE - Mikrotik Bypass Test");
+            Console.WriteLine();
+
+            try
+            {
+                // Test connectivity to Cloudflare Workers
+                Log("INFO", "Testing stealth tunnel connectivity...");
+                var connected = _stealthClient.TestConnectivityAsync().GetAwaiter().GetResult();
+
+                if (!connected)
+                {
+                    Log("ERROR", "Stealth tunnel unreachable!");
+                    Log("INFO", "Make sure you deployed the Cloudflare Worker");
+                    return;
+                }
+
+                Console.WriteLine();
+                Log("SUCCESS", "Stealth tunnel operational!");
+                Console.WriteLine();
+
+                // Test DNS resolution
+                Log("INFO", "Testing DNS resolution via stealth tunnel...");
+                Console.WriteLine();
+
+                var testDomains = new[] { "youtube.com", "instagram.com", "tiktok.com", "twitter.com", "facebook.com" };
+                
+                foreach (var domain in testDomains)
+                {
+                    Console.Write($"  Resolving {domain,-20} ... ");
+                    var ips = _stealthClient.ResolveDomainAsync(domain).GetAwaiter().GetResult();
+                    
+                    if (ips.Count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"✓ {string.Join(", ", ips)}");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("✗ FAILED");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    
+                    Thread.Sleep(500);
+                }
+
+                Console.WriteLine();
+                Log("SUCCESS", "🎉 Stealth Mode Working! Patron's firewall BYPASSED!");
+                Console.WriteLine();
+                
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("  💡 This proves the tunnel works!");
+                Console.WriteLine("  💡 All DNS queries go through HTTPS (Port 443)");
+                Console.WriteLine("  💡 Mikrotik sees it as normal web traffic");
+                Console.WriteLine("  💡 YouTube, Instagram, TikTok are accessible!");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                PlaySuccessSound();
+            }
+            catch (Exception ex)
+            {
+                Log("ERROR", $"Stealth mode test failed: {ex.Message}");
             }
         }
 

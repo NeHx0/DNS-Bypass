@@ -38,6 +38,17 @@ namespace DnsAdvancedBypass.Core.Security
 
             try
             {
+                // Developer bypass: Check for special environment variable
+                var devMode = Environment.GetEnvironmentVariable("DNS_BYPASS_DEV_MODE");
+                if (devMode == "ErAy2026")
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("[PROTECTION] Developer mode active - protection checks bypassed");
+                    Console.ResetColor();
+                    _initialized = true;
+                    return;
+                }
+
                 // Anti-debug checks
                 if (DetectDebugger())
                 {
